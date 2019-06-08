@@ -1,44 +1,7 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim 
-call vundle#begin() " alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-Plugin 'L9'
-" Git plugin not hosted on GitHub
-Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Avoid a name conflict with L9 " Plugin 'user/L9', {'name': 'newL9'} Plugin 'Valloric/YouCompleteMe'
-
-Plugin 'derekwyatt/vim-scala'
-Plugin 'scrooloose/nerdtree'
-
-Plugin 'lervag/vimtex'
-Plugin 'scrooloose/nerdcommenter'
-
-" Track the engine.
-Plugin 'SirVer/ultisnips'
-"
-" " Snippets are separated from the engine. Add this if you want them:
-Plugin 'honza/vim-snippets'
-
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
+"" All of your Plugins must be added before the following line
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 " filetype plugin on
@@ -94,12 +57,28 @@ Plugin 'SirVer/ultisnips'
 "
 " " Snippets are separated from the engine. Add this if you want them:
 Plugin 'honza/vim-snippets'
+
+Plugin 'google/yapf', { 'rtp': 'plugins/vim' }
+
+Plugin 'nvie/vim-flake8'
+
+Plugin 'junegunn/fzf'
+
+Plugin 'maksimr/vim-jsbeautify'
+
+Plugin 'vim-javascript'
+
+Plugin 'tpope/vim-surround'
+
+Plugin 'benmills/vimux'
+
 "
 " " Trigger configuration. Do not use <tab> if you use
 " https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<c-b>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:ultisnips_python_style="google"
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -121,6 +100,8 @@ set number
 set backspace=indent,eol,start " backspace over everything in insert mode
 set background=dark
 colorscheme solarized
+set softtabstop=4
+set shiftwidth=4
 autocmd FileType html setlocal shiftwidth=4 softtabstop=4
 autocmd FileType javascript setlocal shiftwidth=4 softtabstop=4
 autocmd FileType r setlocal shiftwidth=2 softtabstop=2
@@ -149,7 +130,7 @@ set t_Co=256
 "set clipboard+=unnamed
 
 " This is for automatic text wrapping
-set tw=90
+set tw=80
 "set fo?
 set fo+=t
 set fo-=l
@@ -186,3 +167,27 @@ let g:vimtex_compiler_latexmk = {
 "set visualbell t_vb =
 "set novisualbell
 set spell
+
+map <C-Y> :call yapf#YAPF()<cr>
+imap <C-Y> <c-o>:call yapf#YAPF()<cr>
+
+set rtp+=~/.fzf
+
+autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
+autocmd FileType json vnoremap <buffer> <c-f> :call RangeJsonBeautify()<cr>
+autocmd FileType jsx vnoremap <buffer> <c-f> :call RangeJsxBeautify()<cr>
+autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
+autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
+
+" Auto start NERDTree when opening vim with no arguments.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+ " Run the current file with rspec
+ map <Leader>rb :call VimuxRunCommand("clear; rspec " . bufname("%"))<CR>
+ " Run command without sending a return
+ map <Leader>rq :call VimuxRunCommand("clear; rspec " . bufname("%"), 0)<CR>
+
+ set relativenumber
+
+ set incsearch
