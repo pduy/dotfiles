@@ -67,6 +67,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+#source ~/.bashrc
 
 # User configuration
 
@@ -106,10 +107,9 @@ bindkey -v
 
 set -o vi
 
-export PATH="/home/duy/anaconda3/bin:$PATH"
-
-# added by Anaconda2 2.5.0 installer
-export PATH="/home/duy/anaconda2/bin:$PATH"
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
 
 export PATH="/home/duy/Programs/hadoop/sbin/:/home/duy/Programs/hadoop/bin:$PATH"
 export HADOOP_CLASSPATH="${JAVA_HOME}/lib/tools.jar"
@@ -120,32 +120,27 @@ export PATH="$PATH:/home/duy/Programs/redis-4.0.2/src"
 export PATH="$PATH:$HOME/bin"
 export PATH="/usr/local/cuda-9.0/bin${PATH:+:${PATH}}"
 export CUDA_HOME="/usr/local/cuda-9.0"
-#export GOOGLE_APPLICATION_CREDENTIALS="/home/duy/personal_stuff/personal-project-3c5da29eb5ef.json"
+export GOOGLE_APPLICATION_CREDENTIALS="/home/duy/personal_stuff/personal-project-3c5da29eb5ef.json"
 
-#synclient ClickFinger3=2
+synclient ClickFinger3=2
 synclient TapButton3=2
 
-# keychain id_rsa id_rsa_github id_rsa_bitbucket id_rsa_ibm  ~/.keychain/`uname -n`-sh
-
-alias vim='vim --servername vim'
-
-alias g='git'
-alias gst='git status'
-alias ga='git add'
-alias gau='git add -u'
-alias gr='git rebase'
-alias gri='git rebase -i'
-alias gcm='git commit -m'
-alias gca='git commit -amend'
-alias gpull='git pull'
-alias gpush='git push'
-alias gpo='git push origin'
-alias gcheck='git checkout'
-alias gstash='git stash'
-
-alias code='code --disable-gpu'
-
-alias conda3='/home/duy/anaconda3/bin/conda'
-alias pip3='/home/duy/anaconda3/bin/pip'
+#keychain id_rsa id_rsa_github id_rsa_bitbucket id_rsa_ibm  ~/.keychain/`uname -n`-sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/duy/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/duy/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/duy/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/duy/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

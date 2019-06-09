@@ -113,12 +113,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# added by Anaconda3 2.5.0 installer
-export PATH="/home/duy/anaconda3/bin:$PATH"
-
-# added by Anaconda2 2.5.0 installer
-export PATH="/home/duy/anaconda2/bin:$PATH"
-
 export PATH="/home/duy/Programs/hadoop/sbin/:/home/duy/Programs/hadoop/bin:$PATH"
 export HADOOP_CLASSPATH="${JAVA_HOME}/lib/tools.jar"
 export CQLSH_NO_BUNDLED=TRUE
@@ -142,3 +136,23 @@ if [ -f '/home/duy/Programs/google-cloud-sdk/path.bash.inc' ]; then source '/hom
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/duy/Programs/google-cloud-sdk/completion.bash.inc' ]; then source '/home/duy/Programs/google-cloud-sdk/completion.bash.inc'; fi
+zsh
+
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/duy/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/duy/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/duy/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/duy/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

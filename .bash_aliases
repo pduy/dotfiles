@@ -1,0 +1,21 @@
+alias vim='vim --servername vim'
+
+#alias g='git'
+#alias gst='git status'
+#alias ga='git add'
+#alias gau='git add -u'
+#alias gr='git rebase'
+#alias gri='git rebase -i'
+#alias gcm='git commit -m'
+#alias gca='git commit -amend'
+#alias gpull='git pull'
+#alias gpush='git push'
+#alias gpo='git push origin'
+#alias gcheck='git checkout'
+#alias gstash='git stash'
+
+alias code='code --disable-gpu'
+alias conda3='/home/duy/anaconda3/bin/conda'
+alias pip3='/home/duy/anaconda3/bin/pip'
+alias vim='vim --servername vim'
+
