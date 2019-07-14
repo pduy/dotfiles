@@ -47,6 +47,7 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'Valloric/YouCompleteMe'
 
 Plugin 'derekwyatt/vim-scala'
+
 Plugin 'scrooloose/nerdtree'
 
 Plugin 'lervag/vimtex'
@@ -63,6 +64,7 @@ Plugin 'google/yapf', { 'rtp': 'plugins/vim' }
 Plugin 'nvie/vim-flake8'
 
 Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
 
 Plugin 'maksimr/vim-jsbeautify'
 
@@ -71,6 +73,8 @@ Plugin 'vim-javascript'
 Plugin 'tpope/vim-surround'
 
 Plugin 'benmills/vimux'
+
+Plugin 'Yggdroot/indentLine'
 
 "
 " " Trigger configuration. Do not use <tab> if you use
@@ -134,6 +138,7 @@ set tw=80
 "set fo?
 set fo+=t
 set fo-=l
+set colorcolumn=+1
 
 " vimtex config
 let g:vimtex_view_method='zathura'
@@ -161,7 +166,8 @@ let g:vimtex_compiler_latexmk = {
         \ ],
         \}
 
-"let g:ycm_path_to_python_interpreter="/home/duy/anaconda2/bin/python"
+"let g:ycm_path_to_python_interpreter="/home/duy/anaconda3/bin/python"
+"let g:ycm_python_binary_path="/home/duy/anaconda3/bin/python"
 "set belloff=all
 "set noerrorbells
 "set visualbell t_vb =
@@ -183,11 +189,23 @@ autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
- " Run the current file with rspec
- map <Leader>rb :call VimuxRunCommand("clear; rspec " . bufname("%"))<CR>
- " Run command without sending a return
- map <Leader>rq :call VimuxRunCommand("clear; rspec " . bufname("%"), 0)<CR>
+" Run the current file with rspec
+map <Leader>rb :call VimuxRunCommand("clear; rspec " . bufname("%"))<CR>
+map <Leader>rpy :call VimuxRunCommand("clear; python " . bufname("%"))<CR>
+map <Leader>rpyt :call VimuxRunCommand("clear; pytest " . bufname("%"))<CR>
+" Run command without sending a return
+map <Leader>rq :call VimuxRunCommand("clear; rspec " . bufname("%"), 0)<CR>
 
- set relativenumber
+set relativenumber
 
- set incsearch
+set incsearch
+
+noremap <C-C> :set hlsearch!<cr>
+
+nnoremap <silent> <leader><space> :Files<CR>
+nnoremap <silent> <leader>a :Buffers<CR>
+nnoremap <silent> <leader>A :Windows<CR>
+nnoremap <silent> <leader>; :BLines<CR>
+nnoremap <silent> <leader>o :BTags<CR>
+nnoremap <silent> <leader>O :Tags<CR>
+nnoremap <silent> <leader>? :History<CR>

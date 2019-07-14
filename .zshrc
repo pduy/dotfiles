@@ -118,9 +118,12 @@ export SPARK_HOME=/home/duy/Programs/spark
 export PATH="$PATH:$SPARK_HOME/bin"
 export PATH="$PATH:/home/duy/Programs/redis-4.0.2/src"
 export PATH="$PATH:$HOME/bin"
-export PATH="/usr/local/cuda-9.0/bin${PATH:+:${PATH}}"
-export CUDA_HOME="/usr/local/cuda-9.0"
+export PATH="$PATH:$HOME/.poetry/bin"
+export PATH="$PATH:$HOME/Programs/pycharm/bin"
+#export PATH="/usr/local/cuda-9.0/bin${PATH:+:${PATH}}"
+#export CUDA_HOME="/usr/local/cuda-9.0"
 export GOOGLE_APPLICATION_CREDENTIALS="/home/duy/personal_stuff/personal-project-3c5da29eb5ef.json"
+#export PYTHONPATH=$PYTHONPATH:/home/duy/anaconda3/lib/python3.7/site-packages
 
 synclient ClickFinger3=2
 synclient TapButton3=2
@@ -129,18 +132,19 @@ synclient TapButton3=2
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/duy/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/duy/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/duy/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/duy/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
+#__conda_setup="$('/home/duy/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+#if [ $? -eq 0 ]; then
+    #eval "$__conda_setup"
+#else
+    #if [ -f "/home/duy/anaconda3/etc/profile.d/conda.sh" ]; then
+	#. "/home/duy/anaconda3/etc/profile.d/conda.sh"
+    #else
+	#export PATH="/home/duy/anaconda3/bin:$PATH"
+    #fi
+#fi
+#unset __conda_setup
 # <<< conda initialize <<<
 
