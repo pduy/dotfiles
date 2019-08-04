@@ -15,7 +15,8 @@ def focus_num(idx):
 
 
 def get_top_parent_of(container):
-    while True:
+    max_iter = 20
+    for _ in range(max_iter):
         parent = i3.parent(container['id'])
         container = parent
         if container['layout'] == 'tabbed': 
