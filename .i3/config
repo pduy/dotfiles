@@ -273,5 +273,19 @@ bindsym $mod+minus scratchpad show
 
 # Fuzzy auto lockscreen
 bindsym Ctrl+$mod+l exec "~/.i3/fuzzy_lock.sh"
-exec xautolock -time 15 -locker '~/.i3/fuzzy_lock.sh' &
+exec xautolock -time 1 -locker '~/.i3/fuzzy_lock.sh' &
+
+# focus parent and move left/right
+bindsym $mod+Mod1+h focus parent; focus left
+bindsym $mod+Mod1+Left focus parent; focus left
+bindsym $mod+Mod1+l focus parent; focus right
+bindsym $mod+Mod1+Right exec focus parent; focus right
+
+# focus tab num
+bindsym Ctrl+Mod1+1 exec ~/.i3/focus_num.py 1
+bindsym Ctrl+Mod1+2 exec ~/.i3/focus_num.py 2
+bindsym Ctrl+Mod1+3 exec ~/.i3/focus_num.py 3
+bindsym Ctrl+Mod1+4 exec ~/.i3/focus_num.py 4
+bindsym Ctrl+Mod1+5 exec ~/.i3/focus_num.py 5
+bindsym Ctrl+Mod1+6 exec ~/.i3/focus_num.py 6
 
