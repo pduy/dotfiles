@@ -95,7 +95,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-#sbindsym $mod+d focus child
+bindsym $mod+c focus child
 
 # define workspaces
 set $ws1 "1:vertical"
@@ -109,15 +109,15 @@ set $ws8 "8:8"
 set $ws9 "9:9"
 set $ws10 "10:laptop"
 
-workspace $ws1 output VGA-1
-workspace $ws2 output DP-1
-workspace $ws3 output DP-1
-workspace $ws4 output DP-1
-workspace $ws5 output DP-1
-workspace $ws6 output DP-1
-workspace $ws7 output DP-1
-workspace $ws8 output DP-1
-workspace $ws9 output DP-1
+workspace $ws1 output VGA-1 eDP-1
+workspace $ws2 output DP-1 eDP-1 
+workspace $ws3 output DP-1 eDP-1
+workspace $ws4 output DP-1 eDP-1
+workspace $ws5 output DP-1 eDP-1
+workspace $ws6 output DP-1 eDP-1
+workspace $ws7 output DP-1 eDP-1
+workspace $ws8 output DP-1 eDP-1
+workspace $ws9 output DP-1 eDP-1
 workspace $ws10 output eDP-1
 
 # switch to workspace
@@ -234,8 +234,8 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -D pulse sset 'Master' 
 #exec --no-startup-id i3-msg 'workspace 1:dev; exec /home/duy/Programs/pycharm/bin/pycharm.sh'
 
 # title bar
-for_window [class="^.*"] border pixel 1
-new_window 1pixel
+for_window [class="^.*"] border pixel 3
+#new_window 1pixel
 
 # activate gnome theme and icons
 exec_always --no-startup-id gnome-settings-daemon
@@ -245,8 +245,8 @@ exec_always --no-startup-id xrandr --output eDP-1 --right-of DP-1
 exec_always --no-startup-id xrandr --output VGA-1 --left-of DP-1
 exec_always --no-startup-id xrandr --output VGA-1 --rotate left
 
-# wallpaper
-exec_always --no-startup-id feh --bg-scale ~/Pictures/vladstudio_aquawave_1024x768_signed.jpg
+# desktop wallpaper
+exec_always --no-startup-id feh --bg-scale ~/Pictures/jason-ortego-TznjqhCHR9g-unsplash.jpg
 
 # startup apps
 exec_always --no-startup-id redshift
@@ -255,7 +255,7 @@ exec_always --no-startup-id redshift
 bindsym F3 exec jumpapp pycharm
 bindsym F4 exec jumpapp chrome
 bindsym F5 exec jumpapp urxvt
-bindsym F9 exec jumpapp code
+#bindsym F9 exec jumpapp code
 bindsym F10 exec jumpapp okular
 
 
@@ -273,7 +273,7 @@ bindsym $mod+minus scratchpad show
 
 # Fuzzy auto lockscreen
 bindsym Ctrl+$mod+l exec "~/.i3/fuzzy_lock.sh"
-exec xautolock -time 1 -locker '~/.i3/fuzzy_lock.sh' &
+exec xautolock -time 30 -locker '~/.i3/fuzzy_lock.sh' &
 
 # focus parent and move left/right
 bindsym $mod+Mod1+h focus parent; focus left
@@ -282,10 +282,23 @@ bindsym $mod+Mod1+l focus parent; focus right
 bindsym $mod+Mod1+Right exec focus parent; focus right
 
 # focus tab num
-bindsym Ctrl+Mod1+1 exec ~/.i3/focus_num.py 1
-bindsym Ctrl+Mod1+2 exec ~/.i3/focus_num.py 2
-bindsym Ctrl+Mod1+3 exec ~/.i3/focus_num.py 3
-bindsym Ctrl+Mod1+4 exec ~/.i3/focus_num.py 4
-bindsym Ctrl+Mod1+5 exec ~/.i3/focus_num.py 5
-bindsym Ctrl+Mod1+6 exec ~/.i3/focus_num.py 6
+bindsym Ctrl+$mod+1 exec ~/.config/i3/focus_num.py 1
+bindsym Ctrl+$mod+2 exec ~/.config/i3/focus_num.py 2
+bindsym Ctrl+$mod+3 exec ~/.config/i3/focus_num.py 3
+bindsym Ctrl+$mod+4 exec ~/.config/i3/focus_num.py 4
+bindsym Ctrl+$mod+5 exec ~/.config/i3/focus_num.py 5
+bindsym Ctrl+$mod+6 exec ~/.config/i3/focus_num.py 6
+
+# gaps
+gaps inner 7
+gaps outer 0 
+smart_gaps on
+smart_borders on
+smart_borders no_gaps
+
+# focused windows
+# class			border  backgr. text    indicator child_border
+client.focused		#4c7899 #285577 #ffffff #2e9ef4 #e6ac00
+client.focused_inactive #333333 #5f676a #ffffff #484e50 #5f676a
+client.unfocused        #333333 #222222 #888888 #292d2e #222222
 
