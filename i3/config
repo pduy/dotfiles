@@ -98,26 +98,26 @@ bindsym $mod+a focus parent
 bindsym $mod+c focus child
 
 # define workspaces
-set $ws1 "1:vertical"
-set $ws2 "2:dev"
+set $ws1 "1:dev"
+set $ws2 "2:dev-2"
 set $ws3 "3:terminal"
-set $ws4 "4:web"
-set $ws5 "5:music"
-set $ws6 "6:files"
+set $ws4 "4:social"
+set $ws5 "5:files"
+set $ws6 "6:6"
 set $ws7 "7:7"
 set $ws8 "8:8"
-set $ws9 "9:9"
+set $ws9 "9:vertical"
 set $ws10 "10:laptop"
 
-workspace $ws1 output VGA-1 eDP-1
-workspace $ws2 output DP-1 eDP-1 
+workspace $ws1 output DP-1 eDP-1 
+workspace $ws2 output DP-1 eDP-1
 workspace $ws3 output DP-1 eDP-1
 workspace $ws4 output DP-1 eDP-1
 workspace $ws5 output DP-1 eDP-1
 workspace $ws6 output DP-1 eDP-1
 workspace $ws7 output DP-1 eDP-1
 workspace $ws8 output DP-1 eDP-1
-workspace $ws9 output DP-1 eDP-1
+workspace $ws9 output VGA-1 eDP-1
 workspace $ws10 output eDP-1
 
 # switch to workspace
@@ -165,6 +165,7 @@ mode "$mode_system" {
     bindsym Escape mode "default"
 }
 bindsym $mod+Pause mode "$mode_system"
+bindsym $mod+Ctrl+l exec --no-startup-id i3lock -c 002b36
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -208,9 +209,10 @@ exec_always --no-startup-id xset r rate 200 60
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 # swap caps lock and escape
-exec_always --no-startup-id xmodmap -e "clear lock"
-exec_always --no-startup-id xmodmap -e "keycode 9 = Caps_Lock NoSymbol Caps_Lock"
-exec_always --no-startup-id xmodmap -e "keycode 66 = Escape NoSymbol Escape"
+#exec_always --no-startup-id xmodmap -e "clear lock"
+#exec_always --no-startup-id xmodmap -e "keycode 9 = Caps_Lock NoSymbol Caps_Lock"
+#exec_always --no-startup-id xmodmap -e "keycode 66 = Escape NoSymbol Escape"
+exec_always --no-startup-id xmodmap ~/.config/i3/swapkeys -display :0
 
 # natural scrolling
 exec_always --no-startup-id synclient NaturalScrolling=1 VertScrollDelta=-113
@@ -252,8 +254,8 @@ exec_always --no-startup-id feh --bg-scale ~/Pictures/jason-ortego-TznjqhCHR9g-u
 exec_always --no-startup-id redshift
 
 # key binding
-bindsym F3 exec jumpapp pycharm
-bindsym F4 exec jumpapp chrome
+bindsym F3 exec jumpapp jetbrains-pycharm
+bindsym F4 exec jumpapp google-chrome
 bindsym F5 exec jumpapp urxvt
 #bindsym F9 exec jumpapp code
 bindsym F10 exec jumpapp okular
@@ -270,6 +272,7 @@ bindsym --release Shift+Print exec scrot -s 'screenshot_%Y%m%d_%H%M%S.png' -e 'm
 bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
+for_window [class="Spotify"] move scratchpad
 
 # Fuzzy auto lockscreen
 bindsym Ctrl+$mod+l exec "~/.i3/fuzzy_lock.sh"
@@ -301,4 +304,8 @@ smart_borders no_gaps
 client.focused		#4c7899 #285577 #ffffff #2e9ef4 #e6ac00
 client.focused_inactive #333333 #5f676a #ffffff #484e50 #5f676a
 client.unfocused        #333333 #222222 #888888 #292d2e #222222
+
+# assign apps to workspaces
+assign [class="gimp-2.8"] $ws4
+assign [class="Gimp-2.8"] $ws4
 
