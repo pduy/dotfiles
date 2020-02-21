@@ -48,6 +48,10 @@ Plugin 'Valloric/YouCompleteMe'
 
 Plugin 'derekwyatt/vim-scala'
 
+Plugin 'neoclide/coc.nvim', {'pinned': 1}
+
+Plugin 'scalameta/coc-metals', {'do': 'yarn install --frozen-lockfile'}
+
 Plugin 'scrooloose/nerdtree'
 
 Plugin 'lervag/vimtex'
@@ -76,6 +80,10 @@ Plugin 'benmills/vimux'
 
 Plugin 'Yggdroot/indentLine'
 
+Plugin 'fisadev/vim-isort'
+
+Plugin 'ctrlpvim/ctrlp.vim'
+
 "
 " " Trigger configuration. Do not use <tab> if you use
 " https://github.com/Valloric/YouCompleteMe.
@@ -103,42 +111,43 @@ syntax on
 set number
 set backspace=indent,eol,start " backspace over everything in insert mode
 set background=dark
-colorscheme solarized
+" colorscheme solarized
+colorscheme gruvbox
 set softtabstop=4
 set shiftwidth=4
 autocmd FileType html setlocal shiftwidth=4 softtabstop=4
 autocmd FileType javascript setlocal shiftwidth=4 softtabstop=4
 autocmd FileType r setlocal shiftwidth=2 softtabstop=2
 autocmd FileType tex setlocal shiftwidth=4 softtabstop=4
-autocmd FileType scala setlocal shiftwidth=4 softtabstop=4
+autocmd FileType scala setlocal shiftwidth=2 softtabstop=2
 autocmd FileType cpp setlocal shiftwidth=4 softtabstop=4
+autocmd FileType yaml setlocal shiftwidth=2 softtabstop=2
+autocmd FileType md setlocal shiftwidth=4 softtabstop=4
 set ic
 
+" Different cursors between Insert and Normal modes
 if has("autocmd")
-	au VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' | redraw!
+	au VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' |
 	au InsertEnter,InsertChange *
 		\ if v:insertmode == 'i' | 
-		\   silent execute '!echo -ne "\e[6 q"' | redraw! |
+		\   silent execute '!echo -ne "\e[6 q"' |
 		\ elseif v:insertmode == 'r' |
-		\   silent execute '!echo -ne "\e[4 q"' | redraw! |
+		\   silent execute '!echo -ne "\e[4 q"' |
 		\ endif
-	au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
+	au VimLeave * silent execute '!echo -ne "\e[ q"' |
 endif
-
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
 map <C-n> :NERDTreeToggle<CR>
 set t_Co=256
 "set clipboard+=unnamed
 
 " This is for automatic text wrapping
-set tw=80
+set tw=100
 "set fo?
 set fo+=t
 set fo-=l
-set colorcolumn=+1
+"set colorcolumn=+1
+set colorcolumn=100
 
 " vimtex config
 let g:vimtex_view_method='zathura'
@@ -166,12 +175,14 @@ let g:vimtex_compiler_latexmk = {
         \ ],
         \}
 
-"let g:ycm_path_to_python_interpreter="/home/duy/anaconda3/bin/python"
-"let g:ycm_python_binary_path="/home/duy/anaconda3/bin/python"
-"set belloff=all
-"set noerrorbells
-"set visualbell t_vb =
-"set novisualbell
+let g:ycm_path_to_python_interpreter="/usr/bin/python3"
+let g:ycm_python_binary_path="/usr/bin/python3"
+let g:ycm_filetype_blacklist={}
+
+set belloff=all
+set noerrorbells
+set visualbell t_vb =
+set novisualbell
 set spell
 
 map <C-Y> :call yapf#YAPF()<cr>
@@ -209,3 +220,17 @@ nnoremap <silent> <leader>; :BLines<CR>
 nnoremap <silent> <leader>o :BTags<CR>
 nnoremap <silent> <leader>O :Tags<CR>
 nnoremap <silent> <leader>? :History<CR>
+
+nmap <C-_>   <Plug>NERDCommenterToggle
+vmap <C-_>   <Plug>NERDCommenterToggle<CR>gv
+
+" CtrlP
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+" configure ctags
+set tags=./tags;,tags;
+
+source ~/.cocvimrc
+
+set conceallevel=0
