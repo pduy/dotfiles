@@ -165,6 +165,18 @@ bindsym $mod+Shift+0 move container to workspace $ws0; workspace $ws0
 bindsym $mod+Shift+Ctrl+l move workspace to output right
 bindsym $mod+Shift+Ctrl+h move workspace to output left
 
+# swap workspaces
+bindsym Mod1+Shift+1 exec ~/.config/i3/swap_workspaces.sh $ws1
+bindsym Mod1+Shift+2 exec ~/.config/i3/swap_workspaces.sh $ws2
+bindsym Mod1+Shift+3 exec ~/.config/i3/swap_workspaces.sh $ws3
+bindsym Mod1+Shift+4 exec ~/.config/i3/swap_workspaces.sh $ws4
+bindsym Mod1+Shift+5 exec ~/.config/i3/swap_workspaces.sh $ws5
+bindsym Mod1+Shift+6 exec ~/.config/i3/swap_workspaces.sh $ws6
+bindsym Mod1+Shift+7 exec ~/.config/i3/swap_workspaces.sh $ws7
+bindsym Mod1+Shift+8 exec ~/.config/i3/swap_workspaces.sh $ws8
+bindsym Mod1+Shift+9 exec ~/.config/i3/swap_workspaces.sh $ws9
+bindsym Mod1+Shift+0 exec ~/.config/i3/swap_workspaces.sh $ws10
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
