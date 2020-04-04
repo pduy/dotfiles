@@ -48,7 +48,7 @@ Plugin 'Valloric/YouCompleteMe'
 
 Plugin 'derekwyatt/vim-scala'
 
-Plugin 'neoclide/coc.nvim', {'pinned': 1}
+Plugin 'neoclide/coc.nvim', {'pinned': 1, 'branch': 'release'}
 
 Plugin 'scalameta/coc-metals', {'do': 'yarn install --frozen-lockfile'}
 
@@ -63,7 +63,7 @@ Plugin 'SirVer/ultisnips'
 " " Snippets are separated from the engine. Add this if you want them:
 Plugin 'honza/vim-snippets'
 
-Plugin 'google/yapf', { 'rtp': 'plugins/vim' }
+Plugin 'Chiel92/vim-autoformat'
 
 Plugin 'nvie/vim-flake8'
 
@@ -80,7 +80,11 @@ Plugin 'benmills/vimux'
 
 Plugin 'Yggdroot/indentLine'
 
+Plugin 'prettier/vim-prettier'
+
 Plugin 'fisadev/vim-isort'
+
+Plugin 'tpope/vim-fireplace'
 
 Plugin 'ctrlpvim/ctrlp.vim'
 
@@ -211,6 +215,11 @@ set relativenumber
 
 set incsearch
 
+set conceallevel=0
+
+set statusline+=%F
+set laststatus=2
+
 noremap <C-C> :set hlsearch!<cr>
 
 nnoremap <silent> <leader><space> :Files<CR>
@@ -221,16 +230,20 @@ nnoremap <silent> <leader>o :BTags<CR>
 nnoremap <silent> <leader>O :Tags<CR>
 nnoremap <silent> <leader>? :History<CR>
 
-nmap <C-_>   <Plug>NERDCommenterToggle
-vmap <C-_>   <Plug>NERDCommenterToggle<CR>gv
+noremap <C-l> :Autoformat<CR>
 
-" CtrlP
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
+autocmd InsertEnter * set cul
+autocmd InsertLeave * set nocul
+
+nmap <C-_> <Plug>NERDCommenterToggle
+vmap <C-_> <Plug>NERDCommenterToggle<CR>gv
 
 " configure ctags
 set tags=./tags;,tags;
 
+set splitright
+
 source ~/.cocvimrc
 
-set conceallevel=0
+let g:formatdef_scalafmt = '"scalafmt --stdin 2>/dev/null"'
+let g:formatters_scala = ['scalafmt']
