@@ -189,9 +189,6 @@ set visualbell t_vb =
 set novisualbell
 set spell
 
-map <C-Y> :call yapf#YAPF()<cr>
-imap <C-Y> <c-o>:call yapf#YAPF()<cr>
-
 set rtp+=~/.fzf
 
 autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
