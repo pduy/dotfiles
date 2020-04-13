@@ -1,0 +1,232 @@
+#
+# wm independent hotkeys
+#
+
+# terminal emulator
+super + Return
+	urxvt
+
+# program launcher
+super + @space
+	dmenu_run
+
+super + d
+	rofi -show drun
+
+super + w
+	rofi -show window
+
+mod1 + Tab
+	rofi -show windowcd
+
+alt + c
+	chromium
+
+alt + k
+	keepass2
+
+
+# Multi-screen screenshots with scrot
+Print
+	scrot 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # All screens
+
+# OSX-like area selection screenshots
+shift + Print
+	scrot -s 'screenshot_%Y%m%d_%H%M%S.png' -e 'mkdir -p ~/Pictures/screenshots && mv $f ~/Pictures/screenshots && xclip -selection clipboard -t image/png -i ~/Pictures/screenshots/`ls -1 -t ~/Pictures/screenshots | head -1`' # Area selection
+
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd
+
+#
+# bspwm hotkeys
+#
+
+# quit/restart bspwm
+super + shift + {q, r}
+	{bspc quit, killall -q sxhkd && killall -q polybar && ~/.config/bspwm/bspwmrc}
+
+# close and kill
+#super + {_,shift + }w
+super + q
+	bspc node -c
+	#bspc node -{c,k}
+
+# turn off computer
+super + Pause; S
+	shutdown -h now
+
+# reboot
+super + Pause; r
+	reboot
+
+# alternate between the tiled and monocle layout
+super + f
+	bspc desktop -l next
+
+# send the newest marked node to the newest preselected node
+super + y
+	bspc node newest.marked.local -n newest.!automatic.local
+
+# swap the current node and the biggest node
+super + g
+	bspc node -s biggest
+
+# rotate tree
+super + r
+	bspc node -R 90
+
+#
+# state/flags
+#
+
+# set the window state
+super + {t,shift + t,s,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# set the node flags
+super + ctrl + {m,x,y,z}
+	bspc node -g {marked,locked,sticky,private}
+
+#
+# focus/swap
+#
+
+# focus the node in the given direction
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# focus the node for the given path jump
+super + {p,b,comma,period}
+	bspc node -f @{parent,brother,first,second}
+
+# focus the next/previous node in the current desktop
+super + {_,shift + }c
+	bspc node -f {next,prev}.local
+
+# focus the next/previous desktop in the current monitor
+super + bracket{left,right}
+	bspc desktop -f {prev,next}.local
+
+# focus the last node/desktop
+super + {grave,Tab}
+	bspc {node,desktop} -f last
+
+# focus the older or newer node in the focus history
+super + {o,i}
+	bspc wm -h off; \
+	bspc node {older,newer} -f; \
+	bspc wm -h on
+
+# focus or send to the given desktop
+#super + 1; super + {_, shift + }{1-9, 0}
+	#bspc {desktop -f, node -d} "DVI-I-2-2:^{1-9, 10}"
+#super + 2; super + {_, shift + }{1-9, 0}
+	#bspc {desktop -f, node -d} "DVI-I-1-1:^{1-9, 10}"
+#super + 3; super + {_, shift + }{1-9, 0}
+	#bspc {desktop -f, node -d} "eDP-1:^{1-9, 10}"
+super + {_,shift + }{1-9, 0}
+	bspc {desktop -f,node -d} {1-9, 10}
+
+# swap 2 desktops
+shift + alt + {1-9, 0}
+	ws="$(bspc query -D -d --names)" &&\
+	bspc desktop -s {1-9, 10} &&\
+	bspc desktop -f $ws &&\
+	bspc desktop -n temp &&\
+	bspc desktop -f {1-9, 10} &&\
+	bspc desktop -n $ws &&\
+	bspc desktop -f temp &&\
+	bspc desktop -n {1-9, 10}
+
+# focus apps
+F3
+    xdo activate -N Chromium
+F4
+    xdo activate -N jetbrains-pycharm
+
+#
+# preselect
+#
+
+# preselect the direction
+super + ctrl + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+# preselect the ratio
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+# cancel the preselection for the focused node
+super + ctrl + space
+	bspc node -p cancel
+
+# cancel the preselection for the focused desktop
+super + ctrl + shift + space
+	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+#
+# move/resize
+#
+
+# expand a window by moving one of its side outward
+super + alt + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contract a window by moving one of its side inward
+super + shift + alt + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# move a floating window
+super + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+# Media player controls
+XF86AudioPlay 
+	playerctl play-pause
+XF86AudioPause 
+	playerctl play-pause
+XF86AudioNext 
+	playerctl next
+XF86AudioPrev 
+	playerctl previous
+
+# Media volume controls
+XF86AudioMute 
+	~/.config/i3/mute.sh
+XF86AudioLowerVolume 
+	~/.config/i3/decrease-volume.sh
+XF86AudioRaiseVolume 
+	~/.config/i3/increase-volume.sh
+
+
+#
+# scratchpad
+# 
+super + shift + minus
+	id=$(bspc query -N -n "focused");\
+	if [ -n "$id" ];then \
+		xprop -id $id -f _SCRATCH 32ii -set _SCRATCH $(date +%s,%N);\
+		bspc node -t "floating";\
+		xdotool windowunmap $id;\
+	fi
+
+super + minus
+	i=$(bspc query -N -n "focused.floating");\
+	if [ -n "$i" ];then \
+		xprop -id $i -f _SCRATCH 32ii -set _SCRATCH $(date +%s,%N);\
+		xdotool windowunmap $i;\
+	else;\
+		i=$(for w in $(xwininfo -root -children | grep -e "^\s*0x[0-9a-f]\+" -o);do \
+			t=$(xprop -id $w _SCRATCH | grep ' = \(.*\)');\
+			if [ -n "$t" ];then \
+				echo $t $w;\
+			fi;\
+		done|sort -n|head -n1|cut -d" " -f 5);\
+		if [ -n "$i" ];then \
+			xprop -id $i -remove _SCRATCH;\
+			bspc rule -a \* state=floating center=on --one-shot;\
+			xdotool windowmap $i;\
+			bspc node -f $i;\
+		fi;\
+	fi
