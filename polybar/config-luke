@@ -65,10 +65,12 @@ font-3 = Symbola:pixelsize=9;1
 modules-left = bspwm xwindow
 ;modules-center =
 ;modules-right = mpd volume mutt-wizard wlan eth battery date
-modules-right = mpd volume wlan eth battery date
+modules-right = mpd filesystem keyboard volume wlan eth temperature battery date
 
 tray-position = right
 tray-padding = 0
+tray-detached = false
+tray-maxsize = 14
 
 wm-restack = bspwm
 
@@ -121,10 +123,10 @@ type = internal/fs
 interval = 25
 
 mount-0 = /
-mount-1 = /home
+mount-1 = /media/duy/SSD2
 
 label-mounted-underline = ${colors.cyan}
-label-mounted = /: %percentage_used%%
+label-mounted = /: %free%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.gray}
 
