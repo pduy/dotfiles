@@ -4,12 +4,12 @@ sxhkd &
 
 xrandr --auto
 
-#for m in $(bspc query --monitors --names | grep -v LVDS); do
-    #bspc monitor $m -d 1 2 3 4 5 6 7 8 9 10
-#done
-bspc monitor DVI-I-1-1 -d 1 2 3 4 7 10
-bspc monitor DVI-I-2-2 -d 8 9
-bspc monitor eDP-1 -d 5 6
+# monitors positions
+xrandr --output DVI-I-1-1 --right-of DVI-I-2-2 --primary
+xrandr --output eDP-1 --below DVI-I-2-2
+
+./config_monitor.py
+bspc desktop -f 1
 
 # polybar
 $HOME/.config/polybar/launch-bspwm.sh &
@@ -17,13 +17,13 @@ $HOME/.config/polybar/launch-bspwm.sh &
 #bspc config border_radius                8
 bspc config border_width                  3
 bspc config window_gap                    5
-bspc config top_padding                   20
+bspc config top_padding                   16
 bspc config bottom_padding                0
 bspc config left_padding                  0
 bspc config right_padding                 0
 bspc config single_monocle                false
 bspc config click_to_focus                true
-bspc config split_ratio                   0.55
+bspc config split_ratio                   0.50
 bspc config borderless_monocle            true
 bspc config gapless_monocle               true
 #bspc config focus_by_distance             true
@@ -35,8 +35,8 @@ bspc config pointer_modifier mod4
 bspc config pointer_action1 move
 bspc config pointer_action2 resize_side
 bspc config pointer_action3 resize_corner
-bspc config automatic_scheme longest_side
-#bspc config initial_polarity second_child
+#bspc config automatic_scheme longest_side
+bspc config initial_polarity second_child
 
 #### BSPWM coloring ####
 bspc config normal_border_color		      "#4c566a"
@@ -56,10 +56,6 @@ bspc rule -a KeePass2 state=floating
 # speed up the keyboard
 xset r rate 200 60
 
-# monitors positions
-xrandr --output DVI-I-1-1 --right-of DVI-I-2-2 --primary
-xrandr --output eDP-1 --right-of DVI-I-1-1
-
 # swap ESC and Capslock
 xmodmap ~/.config/bspwm/swapkeys -display :0
 
@@ -69,5 +65,7 @@ xinput set-prop 13 314 1
 xinput set-prop 13 323 -0.5
 
 # wallpaper
-feh --bg-scale ~/Pictures/jason-ortego-TznjqhCHR9g-unsplash.jpg
+feh --bg-scale --randomize /usr/share/backgrounds
 
+# Fix PyCharm blank screen
+wmname LG3D
