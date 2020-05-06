@@ -9,6 +9,7 @@ xrandr --output DVI-I-1-1 --right-of DVI-I-2-2
 xrandr --output eDP-1 --below DVI-I-1-1
 xrandr --output DVI-I-1-1 --primary
 
+source ~/.config/bspwm/detect_monitor.sh
 ~/.config/bspwm/config_monitor.py
 bspc desktop -f 1
 
