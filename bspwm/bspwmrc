@@ -59,7 +59,7 @@ bspc rule -a KeePass2 state=floating
 xset r rate 200 60
 
 # swap ESC and Capslock
-xmodmap ~/.config/bspwm/swapkeys -display :0
+setxkbmap -option caps:swapescape
 
 # natural scrolling
 synclient NaturalScrolling=1 VertScrollDelta=-100 MaxSpeed=1.2 MinSpeed=0.8
