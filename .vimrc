@@ -31,11 +31,11 @@ Plugin 'gmarik/Vundle.vim'
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
+"Plugin 'tpope/vim-fugitive'
 " plugin from http://vim-scripts.org/vim/scripts.html
-Plugin 'L9'
+"Plugin 'L9'
 " Git plugin not hosted on GitHub
-Plugin 'git://git.wincent.com/command-t.git'
+"Plugin 'git://git.wincent.com/command-t.git'
 " git repos on your local machine (i.e. when working on your own plugin)
 "Plugin 'file:///home/gmarik/path/to/plugin'
 " The sparkup vim script is in a subdirectory of this repo called vim.
@@ -50,6 +50,8 @@ Plugin 'derekwyatt/vim-scala'
 
 Plugin 'neoclide/coc.nvim', {'pinned': 1, 'branch': 'release'}
 
+Plugin 'neoclide/coc-python'
+
 Plugin 'scalameta/coc-metals', {'do': 'yarn install --frozen-lockfile'}
 
 Plugin 'scrooloose/nerdtree'
@@ -63,7 +65,7 @@ Plugin 'SirVer/ultisnips'
 " " Snippets are separated from the engine. Add this if you want them:
 Plugin 'honza/vim-snippets'
 
-Plugin 'Chiel92/vim-autoformat'
+"Plugin 'Chiel92/vim-autoformat'
 
 Plugin 'nvie/vim-flake8'
 
@@ -80,13 +82,22 @@ Plugin 'benmills/vimux'
 
 Plugin 'Yggdroot/indentLine'
 
-Plugin 'prettier/vim-prettier'
-
 Plugin 'fisadev/vim-isort'
 
-Plugin 'tpope/vim-fireplace'
+"Plugin 'ctrlpvim/ctrlp.vim'
 
-Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'tpope/vim-markdown'
+
+Plugin 'vim-pandoc/vim-rmarkdown'
+
+"Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+
+"let g:powerline_pycmd = "py3"
+
+"markdown config
+let g:markdown_fenced_languages = ['html', 'python', 'scala', 'bash=sh']
+let g:markdown_syntax_conceal = 0
+let g:markdown_minlines = 100
 
 "
 " " Trigger configuration. Do not use <tab> if you use
@@ -141,15 +152,20 @@ if has("autocmd")
 	au VimLeave * silent execute '!echo -ne "\e[ q"' |
 endif
 
+set ttimeout
+set ttimeoutlen=1
+set listchars=tab:>-,trail:~,extends:>,precedes:<,space:.
+set ttyfast
+
 map <C-n> :NERDTreeToggle<CR>
 set t_Co=256
 "set clipboard+=unnamed
 
 " This is for automatic text wrapping
-set tw=100
+"set tw=100
 "set fo?
-set fo+=t
-set fo-=l
+"set fo+=t
+"set fo-=l
 "set colorcolumn=+1
 set colorcolumn=100
 
@@ -198,8 +214,8 @@ autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
 autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
 
 " Auto start NERDTree when opening vim with no arguments.
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " Run the current file with rspec
 map <Leader>rb :call VimuxRunCommand("clear; rspec " . bufname("%"))<CR>
@@ -229,11 +245,12 @@ nnoremap <silent> <leader>? :History<CR>
 
 noremap <C-l> :Autoformat<CR>
 
-autocmd InsertEnter * set cul
-autocmd InsertLeave * set nocul
+nmap <C-_>   <Plug>NERDCommenterToggle
+vmap <C-_>   <Plug>NERDCommenterToggle<CR>gv
 
-nmap <C-_> <Plug>NERDCommenterToggle
-vmap <C-_> <Plug>NERDCommenterToggle<CR>gv
+" CtrlP
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
 
 " configure ctags
 set tags=./tags;,tags;
@@ -242,5 +259,12 @@ set splitright
 
 source ~/.cocvimrc
 
-let g:formatdef_scalafmt = '"scalafmt --stdin 2>/dev/null"'
-let g:formatters_scala = ['scalafmt']
+"let g:formatdef_scalafmt = '"scalafmt --stdin 2>/dev/null"'
+"let g:formatters_scala = ['scalafmt']
+
+"split navigations
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+

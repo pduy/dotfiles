@@ -20,11 +20,22 @@ mod1 + Tab
 	rofi -show windowcd
 
 alt + c
-	chromium
+	google-chrome
 
-alt + k
-	keepass2
+alt + z
+	/home/dupham/apps/Zotero_linux-x86_64/zotero
 
+alt + f
+	firefox
+
+alt + n
+	/home/dupham/apps/VNote-2.9-x86_64.AppImage
+
+alt + r
+	pcmanfm
+
+alt + q
+	qutebrowser
 
 # Multi-screen screenshots with scrot
 Print
@@ -44,7 +55,10 @@ super + Escape
 
 # quit/restart bspwm
 super + shift + {q, r}
-	{bspc quit, killall -q sxhkd && killall -q polybar && ~/.config/bspwm/bspwmrc}
+	{bspc quit, killall -q sxhkd && killall -q polybar && ~/.config/bspwm/bspwmrc 1}
+
+super + shift + w
+	killall -q sxhkd && killall -q polybar && xrandr -s 0 && xrandr --dpi 96 && xrandr --auto && ~/.config/bspwm/bspwmrc 1
 
 # close and kill
 #super + {_,shift + }w
@@ -62,7 +76,7 @@ super + Pause; r
 
 # lock
 super + Pause; l
-	dm-tool lock
+	i3lock -c 002b36
 
 # alternate between the tiled and monocle layout
 super + f
@@ -73,8 +87,8 @@ super + y
 	bspc node newest.marked.local -n newest.!automatic.local
 
 # swap the current node and the biggest node
-super + g
-	bspc node -s biggest
+super + {_, shift +} g
+	bspc node -{f,s} biggest.local
 
 # rotate tree
 super + r
@@ -134,17 +148,33 @@ super + {_,shift + }{1-9, 0}
 
 # focus monitor
 super + m; {1-3}
-    bspc monitor -f {$MAIN_MONITOR, $SUB_MONITOR, $REMAINING_MONITOR}
+    bspc monitor -f {DVI-I-2-2, DVI-I-1-1, eDP-1}
+
+# setup monitor
+super + m; super + 1
+    for i in $(seq 9); do (bspc desktop -f $i && bspc desktop -m eDP-1) done
+
+super + m; super + 2
+    for i in $(seq 9); do (bspc desktop -f $i && bspc desktop -m DP-1) done
+
+super + m; super + 3
+    for i in $(seq 9); do (bspc desktop -f $i && bspc desktop -m HDMI-1) done
+
+super + m; super + 0
+    /home/dupham/.config/bspwm/config_monitor.sh 
+
+super + m; super + shift + {1-9, 0}
+    bspc desktop -m {eDP-1, DVI-I-2-2, DVI-I-1-1, DP-1, HDMI-1}
 
 # swap 2 desktops
 shift + alt + {1-9, 0}
     ~/.config/sxhkd/swap_desktop.sh {1-9, 0}
 
 # focus apps
-F3
-    xdo activate -N Chromium
-F4
-    xdo activate -N jetbrains-pycharm
+#F3
+    #xdo activate -N Chromium
+#F4
+    #xdo activate -N jetbrains-pycharm
 
 #
 # preselect
@@ -172,11 +202,11 @@ super + ctrl + shift + space
 
 # expand a window by moving one of its side outward
 super + alt + {h,j,k,l}
-	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+	bspc node -z {left -40 0,bottom 0 40,top 0 -40,right 40 0}
 
 # contract a window by moving one of its side inward
 super + shift + alt + {h,j,k,l}
-	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+	bspc node -z {right -40 0,top 0 40,bottom 0 -40,left 40 0}
 
 # move a floating window
 super + {Left,Down,Up,Right}
