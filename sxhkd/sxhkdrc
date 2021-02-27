@@ -8,7 +8,8 @@ super + Return
 
 # program launcher
 super + @space
-	dmenu_run
+	find ~/Documents/Dropbox/vnote_notebooks/ -maxdepth 10 -type f | dmenu "$@" | xargs gvim
+	#dmenu_run
 
 super + d
 	rofi -show drun
@@ -19,23 +20,36 @@ super + w
 mod1 + Tab
 	rofi -show windowcd
 
-alt + c
-	google-chrome
+mod1 + c
+	chromium
 
-alt + z
-	/home/dupham/apps/Zotero_linux-x86_64/zotero
+mod1 + b
+	brave-browser
 
-alt + f
+mod1 + k
+	keepass2
+
+mod1 + f
 	firefox
 
-alt + n
-	/home/dupham/apps/VNote-2.9-x86_64.AppImage
+mod1 + z
+	/home/duy/Programs/Zotero_linux-x86_64/zotero
 
-alt + r
+mod1 + d 
+	dropbox
+
+mod1 + r
 	pcmanfm
 
-alt + q
+mod1 + q
 	qutebrowser
+
+mod1 + n
+	/home/duy/Programs/VNote-2.9-x86_64.AppImage 
+
+mod1 + l
+	slack
+
 
 # Multi-screen screenshots with scrot
 Print
@@ -55,7 +69,7 @@ super + Escape
 
 # quit/restart bspwm
 super + shift + {q, r}
-	{bspc quit, killall -q sxhkd && killall -q polybar && ~/.config/bspwm/bspwmrc 1}
+	{bspc quit, killall -q sxhkd && killall -q polybar && ~/.config/bspwm/bspwmrc 0}
 
 super + shift + w
 	killall -q sxhkd && killall -q polybar && xrandr -s 0 && xrandr --dpi 96 && xrandr --auto && ~/.config/bspwm/bspwmrc 1
@@ -77,6 +91,7 @@ super + Pause; r
 # lock
 super + Pause; l
 	i3lock -c 002b36
+	#dm-tool lock
 
 # alternate between the tiled and monocle layout
 super + f
@@ -87,7 +102,7 @@ super + y
 	bspc node newest.marked.local -n newest.!automatic.local
 
 # swap the current node and the biggest node
-super + {_, shift +} g
+super + {_,shift +} g
 	bspc node -{f,s} biggest.local
 
 # rotate tree
@@ -147,34 +162,18 @@ super + {_,shift + }{1-9, 0}
 	bspc {desktop -f,node -d} {1-9, 10}
 
 # focus monitor
-super + m; {1-3}
-    bspc monitor -f {DVI-I-2-2, DVI-I-1-1, eDP-1}
-
-# setup monitor
-super + m; super + 1
-    for i in $(seq 9); do (bspc desktop -f $i && bspc desktop -m eDP-1) done
-
-super + m; super + 2
-    for i in $(seq 9); do (bspc desktop -f $i && bspc desktop -m DP-1) done
-
-super + m; super + 3
-    for i in $(seq 9); do (bspc desktop -f $i && bspc desktop -m HDMI-1) done
-
-super + m; super + 0
-    /home/dupham/.config/bspwm/config_monitor.sh 
-
-super + m; super + shift + {1-9, 0}
-    bspc desktop -m {eDP-1, DVI-I-2-2, DVI-I-1-1, DP-1, HDMI-1}
+super + m; {1-9}
+    bspc monitor -f $(bspc query --monitors --names | head -{1-9} | tail -1)
 
 # swap 2 desktops
 shift + alt + {1-9, 0}
     ~/.config/sxhkd/swap_desktop.sh {1-9, 0}
 
 # focus apps
-#F3
-    #xdo activate -N Chromium
-#F4
-    #xdo activate -N jetbrains-pycharm
+F3
+    xdo activate -N Chromium
+F4
+    xdo activate -N jetbrains-pycharm
 
 #
 # preselect
