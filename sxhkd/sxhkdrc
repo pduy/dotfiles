@@ -8,7 +8,7 @@ super + Return
 
 # program launcher
 super + @space
-	find ~/Documents/Dropbox/vnote_notebooks/ -maxdepth 10 -type f | dmenu "$@" | xargs gvim
+	find ~/Documents/Dropbox/vnote_notebooks/ -maxdepth 10 -type f | dmenu -i "$@" | xargs gvim
 	#dmenu_run
 
 super + d
