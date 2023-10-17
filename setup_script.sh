@@ -33,3 +33,5 @@ sudo apt install i3lock
 sudo apt install imagemagick
 wget https://raw.githubusercontent.com/betterlockscreen/betterlockscreen/main/install.sh -O - -q | sudo bash -s system
 sudo apt install scrot
+
+curl https://pyenv.run | bash
