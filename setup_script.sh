@@ -20,6 +20,7 @@ sudo apt-get install zathura -y
 sudo apt-get install xdotool -y
 sudo apt-get install okular -y
 sudo apt-get install dconf-editor -y
+sudo apt-get install default-jre -y
 
 sudo apt-get install ttf-mscorefonts-installer -y
 
@@ -41,3 +42,4 @@ echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.
 echo 'eval "$(pyenv init -)"' >> ~/.bash_profile
 
 sudo apt install tlp tlp-rdw
+
