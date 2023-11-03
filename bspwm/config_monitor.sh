@@ -5,57 +5,43 @@ then
     bspc monitor $1 -d 1 2 3 4 5 6 7 8 9 10
 elif [ $# -eq 2 ]
 then
-    bspc monitor $1 -d 1 2 3 4 6 7 8 9 10
-    bspc monitor $2 -d 5
+    bspc monitor $1 -d 1 2 3 4 7 8 9 10
+    bspc monitor $2 -d 5 6
 elif [ $# -eq 3 ]
 then
-    bspc monitor $1 -d 1 2 3 4 8 9 10
-    bspc monitor $2 -d 6 7
-    bspc monitor $3 -d 5
+    bspc monitor $1 -d 1 2 3 4
+    bspc monitor $2 -d 7 8 9 10
+    bspc monitor $3 -d 5 6
 else
-    x=$(xrandr | grep " connected" | cut -d" " -f1)
-    x_no_edp_1=$(echo $x | sed -e "s/eDP-1//")
+    x=$(xrandr)
+
 
     main_monitor=""
     sub_monitor=""
     remaining_monitor=""
 
-    if [[ $x_no_edp_1 == *"DP-1"* ]]; then
+    if [[ $x == *"HDMI-1 connected"* ]]; then
+	main_monitor="HDMI-1"
+    elif [[ $x == *"DP-1 connected"* ]]; then
 	main_monitor="DP-1"
-    elif [[ $x == *"DVI-I-1-1" ]]; then
-	main_monitor="DVI-I-1-1"
-    elif [[ $x == *"DVI-I-2-2" ]]; then
-	main_monitor="DVI-I-2-2"
+    elif [[ $x == *"DP-3-1 connected"* ]]; then
+	main_monitor="DP-3-1"
     else
 	main_monitor="eDP-1"
     fi
 
     x=$(echo $x | sed -e "s/[^e]$main_monitor\s*//")
 
-    if [[ $x == *"DVI-I-1-1"* ]]; then
-	sub_monitor="DVI-I-1-1"
-    elif [[ $x == *"DVI-I-2-2" ]]; then
-	sub_monitor="DVI-I-2-2"
-    elif [[ $x == *"eDP-1"*  && $main_monitor != *"eDP-1"* ]]; then
+    if [[ $x == *"DP-1 connected"* ]]; then
+	sub_monitor="DP-1"
+    elif [[ $x == *"HDMI-1 connected"* ]]; then
+	sub_monitor="HDMI-1"
+    elif [[ $x == *"eDP-1 connected"*  && $main_monitor != *"eDP-1"* ]]; then
 	sub_monitor="eDP-1"
     fi
 
-    remaining_monitor=$(echo $x | sed -e "s/\s*$sub_monitor\s*//")
-    if [[ $remaining_monitor == *"eDP-1"* ]]; then
+    if [[ $sub_monitor != "eDP-1" ]]; then
 	remaining_monitor="eDP-1"
-    fi
-
-    if [[ $main_monitor == "DP-1" ]]; then
-	#remaining_monitor=""
-	#sub_monitor="eDP-1"
-	#xrandr --output DVI-I-1-1 --off	
-	#xrandr --output DP-1 --mode "3440x1440"
-	xrandr --output DVI-I-1-1 --left DP-1
-	xrandr --output DVI-I-1-1 --rotate "left"
-	xrandr --output DP-1 --above eDP-1 --primary
-    else
-	xrandr --output $main_monitor --left-of $sub_monitor --primary
-	xrandr --output $remaining_monitor --below $main_monitor
     fi
 
     echo $main_monitor
@@ -64,15 +50,15 @@ else
 
     if [[ $sub_monitor != "" ]]; then
 	if [[ $remaining_monitor != "" ]]; then
-	    bspc monitor $main_monitor -d 1 2 3 4 8 9 10
-	    bspc monitor $sub_monitor -d 6 7 
-	    bspc monitor $remaining_monitor -d 5
-	    xrandr --output $main_monitor --right-of $sub_monitor --primary
-	    xrandr --output $remaining_monitor --below $main_monitor
+	    xrandr --output $main_monitor --left-of $remaining_monitor
+	    xrandr --output $remaining_monitor --left-of $sub_monitor
+	    bspc monitor $main_monitor -d 1 2 3 4
+	    bspc monitor $sub_monitor -d  7 8 9 10
+	    bspc monitor $remaining_monitor -d 5 6
 	else
-	    bspc monitor $main_monitor -d 1 2 3 4 6 7 8 9 10
-	    bspc monitor $sub_monitor -d 5
-	    xrandr --output $main_monitor --above $sub_monitor --primary
+	    xrandr --output $main_monitor --left-of $sub_monitor
+	    bspc monitor $main_monitor -d 1 2 3 4 7 8 9 10
+	    bspc monitor $sub_monitor -d 5 6
 	fi
     else
 	bspc monitor $main_monitor -d 1 2 3 4 5 6 7 8 9 10
@@ -81,3 +67,4 @@ fi
 
 bspc desktop Desktop --remove &
 nohup $HOME/.config/polybar/launch-bspwm.sh &
+feh --randomize --bg-fill /home/duypham/Pictures/wallpapers &

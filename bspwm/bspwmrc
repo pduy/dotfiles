@@ -4,15 +4,19 @@
 
 sxhkd &
 
-xrandr --auto
+#xrandr -s 0 && xrandr --auto
 
 ibus-daemon &
 
 xsetroot -cursor_name left_ptr
 
-pidof bspswallow || bspswallow &
+# pidof bspswallow || bspswallow &
 
-~/.config/bspwm/config_monitor.sh
+if [ $1 -eq 0 ]; then
+    ~/.config/bspwm/config_monitor.sh
+else
+    ~/.config/bspwm/move_desktops.sh
+fi
 bspc desktop -f 1
 
 # polybar
@@ -27,11 +31,12 @@ bspc config left_padding                  0
 bspc config right_padding                 0
 bspc config single_monocle                true
 bspc config click_to_focus                true
-bspc config split_ratio                   0.50
+bspc config split_ratio                   0.52
 bspc config borderless_monocle            true
 bspc config gapless_monocle               true
 #bspc config focus_by_distance             true
 bspc config focus_follows_pointer         true
+bspc config pointer_follows_focus         true
 #bspc config history_aware_focus           true
 bspc config remove_disabled_monitors      true
 bspc config merge_overlapping_monitors    true
@@ -56,7 +61,6 @@ bspc rule -a Zathura state=tiled follow=on
 bspc rule -a Google-chrome desktop='1'
 bspc rule -a google-chrome desktop='1'
 bspc rule -a Firefox desktop='4'
-bspc rule -a VNote-2.9-x86_64.AppImage desktop='7'
 
 # speed up the keyboard
 xset r rate 200 60
@@ -65,21 +69,12 @@ xset r rate 200 60
 #xmodmap ~/.config/bspwm/swapkeys -display :0
 setxkbmap -option caps:swapescape
 
-# natural scrolling
-synclient NaturalScrolling=1 VertScrollDelta=-100 MaxSpeed=1.2 MinSpeed=0.8
-xinput set-prop 15 279 1
-xinput set-prop 15 288 -0.7
+# mouse config
+synclient VertScrollDelta=-100 MaxSpeed=1.2 MinSpeed=0.8
+xinput set-prop 12 322 3.5
 
 # wallpaper
-feh --randomize --bg-fill /home/dupham/Pictures/backgrounds
+#feh --randomize --bg-fill /home/duypham/Pictures/wallpapers
 
 # Fix PyCharm blank screen
 wmname LG3D
-
-# autostart apps
-if [ $# -eq 0 ] 
-then
-    google-chrome&
-    firefox&
-    /home/dupham/apps/VNote-2.9-x86_64.AppImage&
-fi
