@@ -14,7 +14,7 @@ then
     bspc monitor $2 -d 7 8 9 10
     bspc monitor $3 -d 5 6
 else
-    x=$(xrandr)
+    x=$(xrandr | sed -e "s/eDP-1//g")
 
 
     main_monitor=""
@@ -37,11 +37,11 @@ else
 	sub_monitor="DP-1"
     elif [[ $x == *"HDMI-1 connected"* ]]; then
 	sub_monitor="HDMI-1"
-    elif [[ $x == *"eDP-1 connected"*  && $main_monitor != *"eDP-1"* ]]; then
+    elif [[ $main_monitor != "eDP-1" ]]; then
 	sub_monitor="eDP-1"
     fi
 
-    if [[ $sub_monitor != "eDP-1" ]]; then
+    if [[ $main_monitor != "eDP-1" && $sub_monitor != "eDP-1" ]]; then
 	remaining_monitor="eDP-1"
     fi
 
@@ -51,41 +51,41 @@ else
 
     if [[ $sub_monitor != "" ]]; then
 	if [[ $remaining_monitor != "" ]]; then
-	    xrandr --output $main_monitor --left-of $remaining_monitor &&\
-	    xrandr --output $remaining_monitor --left-of $sub_monitor &&\
-	    bspc desktop 1 --to-monitor $main_monitor &&\
-	    bspc desktop 2 --to-monitor $main_monitor &&\
-	    bspc desktop 3 --to-monitor $main_monitor &&\
-	    bspc desktop 4 --to-monitor $main_monitor &&\
-	    bspc desktop 5 --to-monitor $remaining_monitor &&\
-	    bspc desktop 6 --to-monitor $remaining_monitor &&\
-	    bspc desktop 7 --to-monitor $sub_monitor &&\
-	    bspc desktop 8 --to-monitor $sub_monitor &&\
-	    bspc desktop 9 --to-monitor $sub_monitor &&\
+	    xrandr --output $main_monitor --left-of $remaining_monitor
+	    xrandr --output $remaining_monitor --left-of $sub_monitor
+	    bspc desktop 1 --to-monitor $main_monitor
+	    bspc desktop 2 --to-monitor $main_monitor
+	    bspc desktop 3 --to-monitor $main_monitor
+	    bspc desktop 4 --to-monitor $main_monitor
+	    bspc desktop 5 --to-monitor $remaining_monitor
+	    bspc desktop 6 --to-monitor $remaining_monitor
+	    bspc desktop 7 --to-monitor $sub_monitor
+	    bspc desktop 8 --to-monitor $sub_monitor
+	    bspc desktop 9 --to-monitor $sub_monitor
 	    bspc desktop 10 --to-monitor $sub_monitor
 	else
-	    xrandr --output $main_monitor --left-of $sub_monitor &&\
-	    bspc desktop 1 --to-monitor $main_monitor &&\
-	    bspc desktop 2 --to-monitor $main_monitor &&\
-	    bspc desktop 3 --to-monitor $main_monitor &&\
-	    bspc desktop 4 --to-monitor $main_monitor &&\
-	    bspc desktop 5 --to-monitor $sub_monitor  &&\
-	    bspc desktop 6 --to-monitor $sub_monitor  &&\
-	    bspc desktop 7 --to-monitor $main_monitor &&\
-	    bspc desktop 8 --to-monitor $main_monitor &&\
-	    bspc desktop 9 --to-monitor $main_monitor &&\
+	    xrandr --output $main_monitor --left-of $sub_monitor
+	    bspc desktop 1 --to-monitor $main_monitor
+	    bspc desktop 2 --to-monitor $main_monitor
+	    bspc desktop 3 --to-monitor $main_monitor
+	    bspc desktop 4 --to-monitor $main_monitor
+	    bspc desktop 5 --to-monitor $sub_monitor
+	    bspc desktop 6 --to-monitor $sub_monitor
+	    bspc desktop 7 --to-monitor $main_monitor
+	    bspc desktop 8 --to-monitor $main_monitor
+	    bspc desktop 9 --to-monitor $main_monitor
 	    bspc desktop 10 --to-monitor $main_monitor
 	fi
     else
-	bspc desktop 1 --to-monitor $main_monitor &&\
-	bspc desktop 2 --to-monitor $main_monitor &&\
-	bspc desktop 3 --to-monitor $main_monitor &&\
-	bspc desktop 4 --to-monitor $main_monitor &&\
-	bspc desktop 5 --to-monitor $main_monitor &&\
-	bspc desktop 6 --to-monitor $main_monitor &&\
-	bspc desktop 7 --to-monitor $main_monitor &&\
-	bspc desktop 8 --to-monitor $main_monitor &&\
-	bspc desktop 9 --to-monitor $main_monitor &&\
+	bspc desktop 1 --to-monitor $main_monitor
+	bspc desktop 2 --to-monitor $main_monitor
+	bspc desktop 3 --to-monitor $main_monitor
+	bspc desktop 4 --to-monitor $main_monitor
+	bspc desktop 5 --to-monitor $main_monitor
+	bspc desktop 6 --to-monitor $main_monitor
+	bspc desktop 7 --to-monitor $main_monitor
+	bspc desktop 8 --to-monitor $main_monitor
+	bspc desktop 9 --to-monitor $main_monitor
 	bspc desktop 10 --to-monitor $main_monitor
     fi
 fi

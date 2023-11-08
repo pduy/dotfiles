@@ -22,10 +22,13 @@ else
 
     if [[ $x == *"HDMI-1 connected"* ]]; then
 	main_monitor="HDMI-1"
+	sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 96/g" ~/.Xdefaults && xrdb ~/.Xdefaults
     elif [[ $x == *"DP-1 connected"* ]]; then
 	main_monitor="DP-1"
+	sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 96/g" ~/.Xdefaults && xrdb ~/.Xdefaults
     elif [[ $x == *"DP-3-1 connected"* ]]; then
 	main_monitor="DP-3-1"
+	sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 110/g" ~/.Xdefaults && xrdb ~/.Xdefaults
     else
 	main_monitor="eDP-1"
     fi
