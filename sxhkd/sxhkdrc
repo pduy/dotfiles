@@ -4,11 +4,15 @@
 
 # terminal emulator
 super + Return
+	~/bin/alacritty
+
+mod1 + Return
 	urxvt
 
 # program launcher
 super + @space
-	find ~/Documents/Dropbox/vnote_notebooks/ -maxdepth 10 -type f | dmenu -i "$@" | xargs gvim
+	~/.config/sxhkd/dmenu_note.sh
+	#find ~/Documents/vnote_notebooks/ -maxdepth 10 -type f | dmenu -i "$@" | xargs "urxvt -e nvim" &> ~/Downloads/dmenu_log
 	#dmenu_run
 
 super + d
@@ -21,19 +25,16 @@ mod1 + Tab
 	rofi -show windowcd
 
 mod1 + c
-	chromium
+	google-chrome
 
 mod1 + b
-	brave-browser
+	brave
 
-mod1 + k
-	keepass2
+mod1 + p
+	~/.config/sxhkd/dmenu_passwords.sh
 
 mod1 + f
 	firefox
-
-mod1 + z
-	/home/duy/Programs/Zotero_linux-x86_64/zotero
 
 mod1 + d 
 	dropbox
@@ -44,12 +45,8 @@ mod1 + r
 mod1 + q
 	qutebrowser
 
-mod1 + n
-	/home/duy/Programs/VNote-2.9-x86_64.AppImage 
-
-mod1 + l
-	slack
-
+mod1 + o
+	obsidian
 
 # Multi-screen screenshots with scrot
 Print
@@ -72,7 +69,8 @@ super + shift + {q, r}
 	{bspc quit, killall -q sxhkd && killall -q polybar && ~/.config/bspwm/bspwmrc 0}
 
 super + shift + w
-	killall -q sxhkd && killall -q polybar && xrandr -s 0 && xrandr --dpi 96 && xrandr --auto && ~/.config/bspwm/bspwmrc 1
+	killall -q sxhkd && killall -q polybar && xrandr --auto && ~/.config/bspwm/bspwmrc 1
+	#killall -q sxhkd && killall -q polybar && xrandr -s 0 && xrandr --dpi 96 && xrandr --auto && ~/.config/bspwm/bspwmrc 1
 
 # close and kill
 #super + {_,shift + }w
@@ -90,7 +88,8 @@ super + Pause; r
 
 # lock
 super + Pause; l
-	i3lock -c 002b36
+	betterlockscreen -l dim
+	#i3lock -c 002b36
 	#dm-tool lock
 
 # alternate between the tiled and monocle layout
@@ -170,10 +169,10 @@ shift + alt + {1-9, 0}
     ~/.config/sxhkd/swap_desktop.sh {1-9, 0}
 
 # focus apps
-F3
-    xdo activate -N Chromium
-F4
-    xdo activate -N jetbrains-pycharm
+#F3
+    #xdo activate -N Chromium
+#F4
+    #xdo activate -N jetbrains-pycharm
 
 #
 # preselect
@@ -223,11 +222,11 @@ XF86AudioPrev
 
 # Media volume controls
 XF86AudioMute 
-	~/.config/i3/mute.sh
+	~/.config/sxhkd/mute.sh
 XF86AudioLowerVolume 
-	~/.config/i3/decrease-volume.sh
+	~/.config/sxhkd/decrease-volume.sh
 XF86AudioRaiseVolume 
-	~/.config/i3/increase-volume.sh
+	~/.config/sxhkd/increase-volume.sh
 
 #
 # scratchpad

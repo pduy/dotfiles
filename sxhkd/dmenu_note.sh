@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-choice=$(find ~/Documents/Dropbox/vnote_notebooks/ -maxdepth 10 -type f | dmenu -i "$@")
+choice=$(find ~/Documents/vnote_notebooks/ -maxdepth 10 -type f | dmenu -i "$@")
 if [[ $choice ]]; then
     echo $choice
-    urxvt -e nvim $choice
+    alacritty -e nvim $choice
 fi

@@ -6,15 +6,15 @@ sxhkd &
 
 #xrandr -s 0 && xrandr --auto
 
-ibus-daemon &
-
 xsetroot -cursor_name left_ptr
 
 # pidof bspswallow || bspswallow &
 
 if [ $1 -eq 0 ]; then
+    echo "configuring new workspaces"
     ~/.config/bspwm/config_monitor.sh
 else
+    echo "move workspaces"
     ~/.config/bspwm/move_desktops.sh
 fi
 bspc desktop -f 1
@@ -25,7 +25,7 @@ bspc desktop -f 1
 #bspc config border_radius                 8
 bspc config border_width                  2
 bspc config window_gap                    4
-bspc config top_padding                   22
+bspc config top_padding                   24
 bspc config bottom_padding                0
 bspc config left_padding                  0
 bspc config right_padding                 0
@@ -58,9 +58,7 @@ bspc config urgent_border_color 	      "#dd2727"
 ### RULES ###
 bspc rule -a Gimp desktop='^4' state=floating follow=on
 bspc rule -a Zathura state=tiled follow=on
-bspc rule -a Google-chrome desktop='1'
-bspc rule -a google-chrome desktop='1'
-bspc rule -a Firefox desktop='4'
+bspc rule -a '*:*:Zoom Meeting' desktop='^1' state=tiled follow=on
 
 # speed up the keyboard
 xset r rate 200 60
@@ -78,3 +76,9 @@ xinput set-prop 12 322 3.5
 
 # Fix PyCharm blank screen
 wmname LG3D
+
+ibus-daemon &
+
+xrdb ~/.Xdefaults &
+
+xss-lock -- betterlockscreen -l &
