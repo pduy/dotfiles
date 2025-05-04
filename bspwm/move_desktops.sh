@@ -3,16 +3,40 @@
 
 if [ $# -eq 1 ]
 then
-    bspc monitor $1 -d 1 2 3 4 5 6 7 8 9 10
+    bspc desktop 1 --to-monitor $1
+    bspc desktop 2 --to-monitor $1
+    bspc desktop 3 --to-monitor $1
+    bspc desktop 4 --to-monitor $1
+    bspc desktop 5 --to-monitor $1
+    bspc desktop 6 --to-monitor $1
+    bspc desktop 7 --to-monitor $1
+    bspc desktop 8 --to-monitor $1
+    bspc desktop 9 --to-monitor $1
+    bspc desktop 10 --to-monitor $1
 elif [ $# -eq 2 ]
 then
-    bspc monitor $1 -d 1 2 3 4 7 8 9 10
-    bspc monitor $2 -d 5 6
+    bspc desktop 1 --to-monitor $1
+    bspc desktop 2 --to-monitor $1
+    bspc desktop 3 --to-monitor $1
+    bspc desktop 4 --to-monitor $1
+    bspc desktop 5 --to-monitor $2
+    bspc desktop 6 --to-monitor $2
+    bspc desktop 7 --to-monitor $1
+    bspc desktop 8 --to-monitor $1
+    bspc desktop 9 --to-monitor $1
+    bspc desktop 10 --to-monitor $1
 elif [ $# -eq 3 ]
 then
-    bspc monitor $1 -d 1 2 3 4
-    bspc monitor $2 -d 7 8 9 10
-    bspc monitor $3 -d 5 6
+    bspc desktop 1 --to-monitor $1
+    bspc desktop 2 --to-monitor $1
+    bspc desktop 3 --to-monitor $1
+    bspc desktop 4 --to-monitor $3
+    bspc desktop 5 --to-monitor $3
+    bspc desktop 6 --to-monitor $2
+    bspc desktop 7 --to-monitor $2
+    bspc desktop 8 --to-monitor $1
+    bspc desktop 9 --to-monitor $1
+    bspc desktop 10 --to-monitor $1
 else
     x=$(xrandr | sed -e "s/eDP-1//g")
 
@@ -23,17 +47,26 @@ else
 
     if [[ $x == *"HDMI-1 connected"* ]]; then
 	main_monitor="HDMI-1"
+	sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 96/g" ~/.Xdefaults && xrdb ~/.Xdefaults
     elif [[ $x == *"DP-1 connected"* ]]; then
 	main_monitor="DP-1"
+	sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 96/g" ~/.Xdefaults && xrdb ~/.Xdefaults
+    elif [[ $x == *"DP-3 connected"* ]]; then
+	sub_monitor="DP-3"
+	sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 96/g" ~/.Xdefaults && xrdb ~/.Xdefaults
     elif [[ $x == *"DP-3-1 connected"* ]]; then
 	main_monitor="DP-3-1"
+	sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 110/g" ~/.Xdefaults && xrdb ~/.Xdefaults
     else
 	main_monitor="eDP-1"
+	sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 110/g" ~/.Xdefaults && xrdb ~/.Xdefaults
     fi
 
     x=$(echo $x | sed -e "s/[^e]$main_monitor\s*//")
 
-    if [[ $x == *"DP-1 connected"* ]]; then
+    if [[ $x == *"DP-3 connected"* ]]; then
+	sub_monitor="DP-3"
+    elif [[ $x == *"DP-1 connected"* ]]; then
 	sub_monitor="DP-1"
     elif [[ $x == *"HDMI-1 connected"* ]]; then
 	sub_monitor="HDMI-1"
@@ -51,18 +84,18 @@ else
 
     if [[ $sub_monitor != "" ]]; then
 	if [[ $remaining_monitor != "" ]]; then
-	    xrandr --output $main_monitor --left-of $remaining_monitor
-	    xrandr --output $remaining_monitor --left-of $sub_monitor
+	    xrandr --output $main_monitor --left-of $sub_monitor
+	    xrandr --output $sub_monitor --left-of $remaining_monitor
 	    bspc desktop 1 --to-monitor $main_monitor
 	    bspc desktop 2 --to-monitor $main_monitor
 	    bspc desktop 3 --to-monitor $main_monitor
-	    bspc desktop 4 --to-monitor $main_monitor
+	    bspc desktop 4 --to-monitor $remaining_monitor
 	    bspc desktop 5 --to-monitor $remaining_monitor
-	    bspc desktop 6 --to-monitor $remaining_monitor
+	    bspc desktop 6 --to-monitor $sub_monitor
 	    bspc desktop 7 --to-monitor $sub_monitor
-	    bspc desktop 8 --to-monitor $sub_monitor
-	    bspc desktop 9 --to-monitor $sub_monitor
-	    bspc desktop 10 --to-monitor $sub_monitor
+	    bspc desktop 8 --to-monitor $main_monitor
+	    bspc desktop 9 --to-monitor $main_monitor
+	    bspc desktop 10 --to-monitor $main_monitor
 	else
 	    xrandr --output $main_monitor --left-of $sub_monitor
 	    bspc desktop 1 --to-monitor $main_monitor

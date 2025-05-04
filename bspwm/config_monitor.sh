@@ -9,11 +9,11 @@ then
     bspc monitor $2 -d 5 6
 elif [ $# -eq 3 ]
 then
-    bspc monitor $1 -d 1 2 3 4
-    bspc monitor $2 -d 7 8 9 10
-    bspc monitor $3 -d 5 6
+    bspc monitor $1 -d 1 2 3 8 9 10
+    bspc monitor $2 -d 6 7
+    bspc monitor $3 -d 4 5
 else
-    x=$(xrandr)
+    x=$(xrandr | sed -e "s/eDP-1//g")
 
 
     main_monitor=""
@@ -26,24 +26,30 @@ else
     elif [[ $x == *"DP-1 connected"* ]]; then
 	main_monitor="DP-1"
 	sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 96/g" ~/.Xdefaults && xrdb ~/.Xdefaults
+    elif [[ $x == *"DP-3 connected"* ]]; then
+	main_monitor="DP-3"
+	sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 96/g" ~/.Xdefaults && xrdb ~/.Xdefaults
     elif [[ $x == *"DP-3-1 connected"* ]]; then
 	main_monitor="DP-3-1"
 	sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 110/g" ~/.Xdefaults && xrdb ~/.Xdefaults
     else
 	main_monitor="eDP-1"
+	sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 110/g" ~/.Xdefaults && xrdb ~/.Xdefaults
     fi
 
     x=$(echo $x | sed -e "s/[^e]$main_monitor\s*//")
 
-    if [[ $x == *"DP-1 connected"* ]]; then
+    if [[ $x == *"DP-3 connected"* ]]; then
+	sub_monitor="DP-3"
+    elif [[ $x == *"DP-1 connected"* ]]; then
 	sub_monitor="DP-1"
     elif [[ $x == *"HDMI-1 connected"* ]]; then
 	sub_monitor="HDMI-1"
-    elif [[ $x == *"eDP-1 connected"*  && $main_monitor != *"eDP-1"* ]]; then
+    elif [[ $main_monitor != "eDP-1" ]]; then
 	sub_monitor="eDP-1"
     fi
 
-    if [[ $sub_monitor != "eDP-1" ]]; then
+    if [[ $main_monitor != "eDP-1" && $sub_monitor != "eDP-1" ]]; then
 	remaining_monitor="eDP-1"
     fi
 
@@ -53,11 +59,11 @@ else
 
     if [[ $sub_monitor != "" ]]; then
 	if [[ $remaining_monitor != "" ]]; then
-	    xrandr --output $main_monitor --left-of $remaining_monitor
-	    xrandr --output $remaining_monitor --left-of $sub_monitor
-	    bspc monitor $main_monitor -d 1 2 3 4
-	    bspc monitor $sub_monitor -d  7 8 9 10
-	    bspc monitor $remaining_monitor -d 5 6
+	    xrandr --output $main_monitor --left-of $sub_monitor
+	    xrandr --output $sub_monitor --left-of $remaining_monitor
+	    bspc monitor $main_monitor -d 1 2 3 8 9 10
+	    bspc monitor $sub_monitor -d  6 7 
+	    bspc monitor $remaining_monitor -d 4 5
 	else
 	    xrandr --output $main_monitor --left-of $sub_monitor
 	    bspc monitor $main_monitor -d 1 2 3 4 7 8 9 10

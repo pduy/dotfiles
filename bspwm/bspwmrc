@@ -59,6 +59,7 @@ bspc config urgent_border_color 	      "#dd2727"
 bspc rule -a Gimp desktop='^4' state=floating follow=on
 bspc rule -a Zathura state=tiled follow=on
 bspc rule -a '*:*:Zoom Meeting' desktop='^1' state=tiled follow=on
+bspc config external_rules_command ~/.config/bspwm/external_rules.sh
 
 # speed up the keyboard
 xset r rate 200 60
@@ -82,3 +83,5 @@ ibus-daemon &
 xrdb ~/.Xdefaults &
 
 xss-lock -- betterlockscreen -l &
+
+nm-applet &
