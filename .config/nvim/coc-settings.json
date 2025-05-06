@@ -1,0 +1,7 @@
+{
+    "python.formatting.provider": "black",
+    "coc.preferences.jumpCommand": "tab drop",
+    "pyright.inlayHints.functionReturnTypes": false,
+    "pyright.inlayHints.variableTypes": false,
+    "pyright.inlayHints.parameterTypes": false
+}
