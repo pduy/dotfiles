@@ -93,12 +93,13 @@ font-1 = "Iosevka Nerd Font:style=Medium:size=22;5"
 ; Other modules: xkeyboard filesystem xbacklight backlight-acpi cpu memory temperature powermenu weather
 modules-left = right2 bspwm left2
 modules-center = title left2
-modules-right = right7 weather right6 filesystem right5 volume right4 memory right3 cpu right2 temperature right1 date right12 battery right23 sysmenu
+modules-right = right7 weather right6 filesystem right5 volume right4 memory cpu right3 temperature right2 date right1 battery sysmenu
 
 tray-position = right
 tray-padding = 0
 tray-detached = false
 tray-maxsize = 14
+tray-background = ${color.shade1}
 
 wm-restack = bspwm
 
@@ -254,7 +255,7 @@ format-prefix = "﬙ cpu "
 ;format-prefix-foreground = ${color.gray}
 ;format-underline = ${color.red}
 ;format-background = ${color.cellbackground}
-format-background = ${color.shade3}
+format-background = ${color.shade4}
 format-padding = 1
 label = %percentage%%
 
@@ -363,13 +364,13 @@ thermal-zone = 0
 warn-temperature = 65
 
 format-prefix = "🌡"
-format = <ramp> <label>
+format = <ramp> <label> 
 ;format-underline = ${color.red}
-format-warn = <ramp> <label-warn>
+format-warn = <ramp> <label-warn> 
 ;format-warn-underline = ${self.format-underline}
-format-background = ${color.shade2}
+format-background = ${color.shade3}
 
-label = %temperature-c%
+label = %temperature-c% 
 label-warn = %temperature-c%
 label-warn-foreground = ${color.darkmagenta}
 
@@ -378,7 +379,7 @@ ramp-1 = 
 ramp-2 = 
 ramp-3 = 
 ramp-4 = 
-ramp-foreground = ${color.gray}
+ramp-foreground = ${color.foreground-alt}
 
 [module/sysmenu]
 type = custom/text
@@ -386,12 +387,13 @@ type = custom/text
 content = sys
 
 ; "content" has the same properties as "format-NAME"
-content-background = ${color.shade3}
+content-background = ${color.shade1}
 content-foreground = ${color.foreground}
 ;;content-padding = 4
 
 ; "click-(left|middle|right)" will be executed using "/usr/bin/env sh -c $COMMAND"
 click-left = ~/.config/polybar/scripts/powermenu.sh &
+click-right = pavucontrol &
 
 ; "scroll-(up|down)" will be executed using "/usr/bin/env sh -c $COMMAND"
 ;;scroll-up = ~/.config/polybar/scripts/powermenu
