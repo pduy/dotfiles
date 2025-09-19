@@ -1,4 +1,5 @@
 set nocompatible              " be iMproved, required
+set smartcase
 filetype off                  " required
 
 "" All of your Plugins must be added before the following line
@@ -70,10 +71,6 @@ Plugin 'nvie/vim-flake8'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
 
-Plugin 'maksimr/vim-jsbeautify'
-
-Plugin 'vim-javascript'
-
 Plugin 'tpope/vim-surround'
 
 Plugin 'benmills/vimux'
@@ -88,9 +85,19 @@ Plugin 'tpope/vim-markdown'
 
 Plugin 'vim-pandoc/vim-rmarkdown'
 
+Plugin 'yuezk/vim-js'
+
+Plugin 'maksimr/vim-jsbeautify'
+
 "Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 
 "let g:powerline_pycmd = "py3"
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+" filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+filetype plugin on
 
 "markdown config
 let g:markdown_fenced_languages = ['html', 'python', 'scala', 'bash=sh']
@@ -105,11 +112,6 @@ let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:ultisnips_python_style="google"
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
 "
 " Brief help
 " :PluginList       - lists configured plugins
@@ -128,8 +130,8 @@ set background=dark
 colorscheme gruvbox
 set softtabstop=4
 set shiftwidth=4
-autocmd FileType html setlocal shiftwidth=4 softtabstop=4
-autocmd FileType javascript setlocal shiftwidth=4 softtabstop=4
+autocmd FileType html setlocal shiftwidth=2 softtabstop=2
+autocmd FileType javascript setlocal shiftwidth=2 softtabstop=2
 autocmd FileType r setlocal shiftwidth=2 softtabstop=2
 autocmd FileType tex setlocal shiftwidth=4 softtabstop=4
 autocmd FileType scala setlocal shiftwidth=2 softtabstop=2
@@ -193,6 +195,7 @@ let g:vimtex_compiler_latexmk = {
 	\   '-interaction=nonstopmode',
         \ ],
         \}
+let g:vimtex_syntax_conceal_disable = 1
 
 let g:ycm_path_to_python_interpreter="/usr/bin/python3"
 let g:ycm_python_binary_path="/usr/bin/python3"
@@ -245,8 +248,12 @@ nnoremap <silent> <leader>? :History<CR>
 
 noremap <C-l> :Autoformat<CR>
 
-nmap <C-_>   <Plug>NERDCommenterToggle
-vmap <C-_>   <Plug>NERDCommenterToggle<CR>gv
+nmap <C-/>   <Plug>NERDCommenterToggle
+vmap <C-/>   <Plug>NERDCommenterToggle<CR>gv
+
+let g:NERDSpaceDelims = 1
+let g:NERDCompactSexyComs = 1
+let g:NERDTrimTrailingWhitespace = 1
 
 " CtrlP
 let g:ctrlp_map = '<c-p>'

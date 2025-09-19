@@ -20,7 +20,7 @@ then
     bspc desktop 3 --to-monitor $1
     bspc desktop 4 --to-monitor $1
     bspc desktop 5 --to-monitor $2
-    bspc desktop 6 --to-monitor $2
+    bspc desktop 6 --to-monitor $1
     bspc desktop 7 --to-monitor $1
     bspc desktop 8 --to-monitor $1
     bspc desktop 9 --to-monitor $1
@@ -45,21 +45,24 @@ else
     sub_monitor=""
     remaining_monitor=""
 
-    if [[ $x == *"HDMI-1 connected"* ]]; then
-	main_monitor="HDMI-1"
-	sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 96/g" ~/.Xdefaults && xrdb ~/.Xdefaults
+    if [[ $x == *"DP-2-1 connected"* ]]; then
+	main_monitor="DP-2-1"
+	# sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 96/g" ~/.Xdefaults && xrdb ~/.Xdefaults
+    if [[ $x == *"DP-2-2 connected"* ]]; then
+	main_monitor="DP-2-2"
+	# sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 96/g" ~/.Xdefaults && xrdb ~/.Xdefaults
     elif [[ $x == *"DP-1 connected"* ]]; then
 	main_monitor="DP-1"
-	sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 96/g" ~/.Xdefaults && xrdb ~/.Xdefaults
+	# sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 96/g" ~/.Xdefaults && xrdb ~/.Xdefaults
     elif [[ $x == *"DP-3 connected"* ]]; then
 	sub_monitor="DP-3"
-	sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 96/g" ~/.Xdefaults && xrdb ~/.Xdefaults
+	# sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 96/g" ~/.Xdefaults && xrdb ~/.Xdefaults
     elif [[ $x == *"DP-3-1 connected"* ]]; then
 	main_monitor="DP-3-1"
-	sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 110/g" ~/.Xdefaults && xrdb ~/.Xdefaults
+	# sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 110/g" ~/.Xdefaults && xrdb ~/.Xdefaults
     else
 	main_monitor="eDP-1"
-	sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 110/g" ~/.Xdefaults && xrdb ~/.Xdefaults
+	# sed -i -E "s/Xft.dpi: [0-9]+/Xft.dpi: 110/g" ~/.Xdefaults && xrdb ~/.Xdefaults
     fi
 
     x=$(echo $x | sed -e "s/[^e]$main_monitor\s*//")
@@ -103,7 +106,7 @@ else
 	    bspc desktop 3 --to-monitor $main_monitor
 	    bspc desktop 4 --to-monitor $main_monitor
 	    bspc desktop 5 --to-monitor $sub_monitor
-	    bspc desktop 6 --to-monitor $sub_monitor
+	    bspc desktop 6 --to-monitor $main_monitor
 	    bspc desktop 7 --to-monitor $main_monitor
 	    bspc desktop 8 --to-monitor $main_monitor
 	    bspc desktop 9 --to-monitor $main_monitor
