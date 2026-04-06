@@ -9,11 +9,13 @@ else
     ~/.config/bspwm/config_monitor.sh &&
     bspc desktop -f 1 &
     sxhkd &
-    redshift &
-    lxappearance & alacritty & bspc node -t floating &
+    #redshift &
+    lxappearance & alacritty &
+    nm-applet &
+    blueman-applet &
+    picom --fade-in-step=1 --fade-out-step=1 --fade-delta=0 &
+    pgrep bspswallow || bspswallow &
 fi
-
-$HOME/.config/polybar/launch.sh &
 
 #bspc config border_radius                8
 bspc config border_width                  2
@@ -24,7 +26,7 @@ bspc config left_padding                  0
 bspc config right_padding                 0
 bspc config single_monocle                true
 bspc config click_to_focus                true
-bspc config split_ratio                   0.65
+bspc config split_ratio                   0.5
 bspc config borderless_monocle            true
 bspc config gapless_monocle               false
 #bspc config focus_by_distance             true
@@ -48,20 +50,13 @@ bspc config presel_feedback_color	      "#5e81ac"
 bspc config urgent_border_color 	      "#dd2727"
 
 
-bspc rule -a Gimp desktop='^4' state=floating follow=on
+bspc rule -a Gimp state=floating follow=on
 bspc rule -a Zathura state=tiled follow=on
-bspc rule -a Pavucontrol state=floating follow=on
-
-# speed up the keyboard
-xset r rate 200 60
+bspc rule -a pavucontrol state=floating follow=on
 
 # swap ESC and Capslock
-setxkbmap -option caps:swapescape
-
-# natural scrolling
-synclient NaturalScrolling=1 VertScrollDelta=-100 MaxSpeed=1.2 MinSpeed=0.8
-xinput set-prop 13 314 1
-xinput set-prop 13 323 -0.5
+~/.config/bspwm/input-settings.sh
+~/.config/bspwm/monitor-hotplug.sh
 
 # wallpaper
 feh --bg-fill --randomize /home/duy/Pictures/wallpapers/
@@ -70,11 +65,8 @@ feh --bg-fill --randomize /home/duy/Pictures/wallpapers/
 wmname LG3D
 
 #/home/duy/work/Programs/bspswallow/bspswallow &
-nm-applet &
-blueman-applet &
-picom &
-pgrep bspswallow || bspswallow &
-
-# xrdb ~/.Xdefaults &
 ~/.config/bspwm/auto_dpi.sh &
+#xrdb ~/.Xdefaults &
+
+$HOME/.config/polybar/launch.sh &
 
