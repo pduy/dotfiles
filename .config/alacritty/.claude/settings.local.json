@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(nvim --version)",
+      "Bash(ggrep -rn 'colorscheme\\\\|background' /Users/duypham/.vimrc)",
+      "Bash(ggrep -rn 'colorscheme\\\\|background\\\\|everforest\\\\|catppuccin\\\\|gruvbox\\\\|theme' /Users/duypham/.vimrc)",
+      "Bash(ggrep -n 'colorscheme\\\\|background\\\\|color\\\\|theme' /Users/duypham/.vimrc)",
+      "Read(//Users/duypham/**)",
+      "Bash(ggrep -n 'colorscheme\\\\|background\\\\|color\\\\|theme\\\\|everforest\\\\|catppuccin\\\\|gruvbox\\\\|rose.pine\\\\|tokyonight' /Users/duypham/.corevimrc)",
+      "Bash(ggrep -n 'colorscheme\\\\|background\\\\|color\\\\|theme' /Users/duypham/.cocvimrc)",
+      "Bash(ggrep *)"
+    ]
+  }
+}

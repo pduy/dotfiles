@@ -1,0 +1,29 @@
+# Alacritty theme -> nvim colorscheme overrides
+# Format: alacritty_theme_name=nvim_colorscheme_name
+# Only needed when auto-derive (strip _light/_dark suffix) doesn't work.
+# Auto-derive handles: gruvbox_dark->gruvbox, everforest_light->everforest, nord->nord
+
+# Catppuccin variants (suffix isn't _light/_dark)
+catppuccin=catppuccin
+catppuccin_latte=catppuccin
+catppuccin_frappe=catppuccin
+catppuccin_macchiato=catppuccin
+catppuccin_mocha=catppuccin
+
+# Rose Pine (nvim uses hyphen, and _dawn/_moon aren't _light/_dark)
+rose_pine=rose-pine
+rose_pine_dawn=rose-pine
+rose_pine_moon=rose-pine
+
+# Tokyo Night (nvim uses no underscore)
+tokyo_night=tokyonight
+tokyo_night_storm=tokyonight
+tokyo_night_light=tokyonight
+tokyo_night_enhanced=tokyonight
+
+# Gruvbox Material (nvim uses hyphen)
+gruvbox_material=gruvbox-material
+gruvbox_material_hard_dark=gruvbox-material
+gruvbox_material_hard_light=gruvbox-material
+gruvbox_material_medium_dark=gruvbox-material
+gruvbox_material_medium_light=gruvbox-material

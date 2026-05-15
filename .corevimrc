@@ -14,87 +14,93 @@ filetype plugin indent on    " required
 " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 "
 " see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this lineset nocompatible              " be iMproved, required
+" Put your non-Plug stuff after this lineset nocompatible              " be iMproved, required
 filetype on " required
 
 set shellslash
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor='latex'
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+" Plug 'gmarik/Vundle.vim'
+Plug 'morhetz/gruvbox'
+Plug 'nordtheme/vim'
+Plug 'sainnhe/everforest'
 
 " The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
+" Keep Plug commands between vundle#begin/end.
 " plugin on GitHub repo
-"Plugin 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 " plugin from http://vim-scripts.org/vim/scripts.html
-"Plugin 'L9'
+"Plug 'L9'
 " Git plugin not hosted on GitHub
-"Plugin 'git://git.wincent.com/command-t.git'
+"Plug 'git://git.wincent.com/command-t.git'
 " git repos on your local machine (i.e. when working on your own plugin)
-"Plugin 'file:///home/gmarik/path/to/plugin'
+"Plug 'file:///home/gmarik/path/to/plugin'
 " The sparkup vim script is in a subdirectory of this repo called vim.
 " Pass the path to set the runtimepath properly.
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plug 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Avoid a name conflict with L9
-"Plugin 'user/L9', {'name': 'newL9'}
+"Plug 'user/L9', {'name': 'newL9'}
+"
+Plug 'sindrets/diffview.nvim'
 
-"Plugin 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
 
-Plugin 'derekwyatt/vim-scala'
+Plug 'derekwyatt/vim-scala'
 
-Plugin 'neoclide/coc.nvim', {'pinned': 1, 'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'pinned': 1, 'branch': 'release'}
 
-Plugin 'fannheyward/coc-pyright'
+Plug 'fannheyward/coc-pyright'
 
-Plugin 'scalameta/nvim-metals'
+Plug 'scalameta/nvim-metals'
 
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 
-Plugin 'lervag/vimtex'
-Plugin 'scrooloose/nerdcommenter'
+Plug 'lervag/vimtex'
+Plug 'scrooloose/nerdcommenter'
 
 " Track the engine.
-Plugin 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 "
 " " Snippets are separated from the engine. Add this if you want them:
-Plugin 'honza/vim-snippets'
+Plug 'honza/vim-snippets'
 
-Plugin 'nvie/vim-flake8'
+Plug 'nvie/vim-flake8'
 
-Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 
-Plugin 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 
-Plugin 'benmills/vimux'
+Plug 'benmills/vimux'
 
-Plugin 'Yggdroot/indentLine'
+Plug 'Yggdroot/indentLine'
 
-Plugin 'fisadev/vim-isort'
+Plug 'fisadev/vim-isort'
 
-"Plugin 'ctrlpvim/ctrlp.vim'
+"Plug 'ctrlpvim/ctrlp.vim'
 
-Plugin 'tpope/vim-markdown'
+Plug 'tpope/vim-markdown'
 
-Plugin 'vim-pandoc/vim-rmarkdown'
+Plug 'vim-pandoc/vim-rmarkdown'
 
-Plugin 'yuezk/vim-js'
+Plug 'yuezk/vim-js'
 
-Plugin 'maksimr/vim-jsbeautify'
+Plug 'maksimr/vim-jsbeautify'
 
-"Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+"Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 
 "let g:powerline_pycmd = "py3"
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()
 " filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 filetype plugin on
@@ -120,14 +126,16 @@ let g:ultisnips_python_style="google"
 " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 "
 " see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+" Put your non-Plug stuff after this line
 "
 syntax on
 set number
 set backspace=indent,eol,start " backspace over everything in insert mode
-set background=dark
+
+" set background=dark
 " colorscheme solarized
-colorscheme gruvbox
+" colorscheme gruvbox
+colorscheme nord
 set softtabstop=4
 set shiftwidth=4
 autocmd FileType html setlocal shiftwidth=2 softtabstop=2
@@ -197,10 +205,10 @@ let g:vimtex_compiler_latexmk = {
         \}
 let g:vimtex_syntax_conceal_disable = 1
 
-let g:ycm_path_to_python_interpreter="/usr/bin/python3"
-let g:ycm_python_binary_path="/usr/bin/python3"
-let g:ycm_filetype_blacklist={"python": 1, "scala": 1, "sh": 1, "json": 1}
-let g:ycm_filetype_specific_completion_to_disable={"python": 1, "scala": 1, "sh": 1, "json": 1}
+" let g:ycm_path_to_python_interpreter="/usr/bin/python3"
+" let g:ycm_python_binary_path="/usr/bin/python3"
+" let g:ycm_filetype_blacklist={"python": 1, "scala": 1, "sh": 1, "json": 1}
+" let g:ycm_filetype_specific_completion_to_disable={"python": 1, "scala": 1, "sh": 1, "json": 1}
 
 set belloff=all
 set noerrorbells
@@ -235,6 +243,12 @@ set conceallevel=0
 
 set statusline+=%F
 set laststatus=2
+
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+set foldlevel=99
+set foldlevelstart=1
+set foldtext=""
 
 noremap <C-C> :set hlsearch!<cr>
 
@@ -274,8 +288,8 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 "tab navigations
-nnoremap <M-h> gT
-nnoremap <M-l> gt
+nnoremap <leader-h> gT
+nnoremap <leader-l> gt
 
 " quick save
 noremap <C-S> :update<CR>
@@ -288,4 +302,4 @@ function! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfun
 
-"autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
